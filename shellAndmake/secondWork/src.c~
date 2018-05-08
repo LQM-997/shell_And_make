@@ -1,0 +1,20 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+#include "sum.h"
+#include "print.h"
+
+int main()
+{
+  int a,b;
+  printf("Please input a  number:");
+  scanf("%d",&a);
+  printf("Please input a number:");
+  scanf("%d",&b);
+
+  int num= sum(a,b);
+  printf("num=%d\n",num);
+  print(num);
+  exit (0);
+}
+    

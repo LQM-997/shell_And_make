@@ -1,0 +1,62 @@
+#!/bin/bash
+
+count_age=0
+count_name=0
+ltage=0
+eqage=0
+gtage=0
+
+if [ -n "$(echo "$1" | grep ^[0-9][0-9]*$)" ];then
+  target_age=$1
+  echo "Target age is ${target_age}."
+else
+  exit 1
+fi
+
+echo  "Please input your name: "
+read name
+
+if [ -z "$name" ];then
+    exit 1
+fi
+
+for name_1 in $name;do
+    total_name[$count_name]=$name_1
+    count_name=`expr $count_name + 1`
+done
+
+echo  "Please input your age: "
+read age
+
+for age_1 in $age;do
+    total_age[$count_age]=$age_1
+    count_age=`expr $count_age + 1`
+done
+
+if [ -n "$(echo "${age}" | grep [0-9][0-9]*$)" ];then
+    if [ $count_name == $count_age ];then
+        i=0
+	while [ ${i} -lt ${count_age} ];do
+	    if [ ${total_age[$i]} -lt ${target_age} ];then
+		echo "name="${total_name[$i]}",age="${total_age[$i]}""
+		ltage=`expr $ltage + 1`
+	    elif [ ${total_age[$i]} -eq $target_age ];then
+		echo "name="${total_name[$i]}",age="${total_age[$i]}""
+		eqage=`expr $eqage + 1`
+	    else
+		echo "name="${total_name[$i]}",age="${total_age[$i]}""
+		gtage=`expr $gtage + 1`
+	    fi
+	    i=`expr $i + 1`
+	done
+	echo "lt_age="$ltage",eq_age="$eqage",gt_age="$gtage""
+	    
+    else
+	echo "Invalidate number "$#""
+	exit 1
+    fi
+else
+    echo "Invalidate age"
+    exit 1
+fi
+exit 0
